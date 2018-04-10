@@ -1,0 +1,617 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{nsb}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}\PY{p}{,} \PY{n}{HTML}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{interactiveshell} \PY{k}{import} \PY{n}{InteractiveShell}
+         \PY{n}{InteractiveShell}\PY{o}{.}\PY{n}{ast\PYZus{}node\PYZus{}interactivity} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}
+         \PY{c+c1}{\PYZsh{}InteractiveShell.ast\PYZus{}node\PYZus{}interactivity = \PYZdq{}last\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} Load inputs}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bau.pickle}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Already have OAT, no need for wx.}
+         \PY{c+c1}{\PYZsh{}wx = pd.read\PYZus{}pickle(\PYZdq{}wxhydro2018.pickle\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}df = dfIn.merge(wx,how=\PYZsq{}outer\PYZsq{},left\PYZus{}index=True,right\PYZus{}index=True)}
+         \PY{c+c1}{\PYZsh{}df = pd.DataFrame(df[df[\PYZsq{}OAT\PYZsq{}]\PYZlt{}16][\PYZsq{}OAT\PYZsq{}].dropna())}
+         \PY{c+c1}{\PYZsh{}df.describe()}
+\end{Verbatim}
+
+
+    \section{Introduction}\label{introduction}
+
+    \subsubsection{Programmable Stat}\label{programmable-stat}
+
+My house is occupied 24/7, but everyone sleeps on the same schedule, so
+we could consider implementing a night setback program. NSB in a fancy
+commercial BAS builds a lookup table so it know's each zone's thermal
+response speed to temperature perturbations, but most residential
+programmable stats only let you modify the RTSP on a schedule.
+
+The hard way to estimate savings from a reduction in interior
+temperature is to model the heating system's behaviour. It's hard
+because it requires a solid heat transfer model of the entire house,
+including ventilation, to carefully determine the heat loss, solving the
+differential equations to account for the exponential decay in transfer
+rates as temperatures approach steady state, and then trying to figure
+out how the heating system will compensate.
+
+But fortunately, we already know how much heat is coming through the
+walls, and for a first-order approximation, heat loss is proportional to
+the delta-T between inside and outside. Our savings will be the
+time-weighted change in delta-T that we can produce with scheduling.
+
+In my house, if I turn the heat off overnight with the OAT at around
+10C, it will cool from 22 to 19 in about 8 hours. It takes about three
+hours to warm back up from 18 no matter what the OAT.
+
+Applying Newton's law of cooling \(T(t)=OAT+(RT-OAT)e^{-kt}\), we find
+
+\begin{align*}
+T(8)=19 & =10+12e^{-8k}\\
+ln(\frac{9}{12}) & =-8k\\
+k & =0.036\\
+\end{align*}
+
+Heating dominates over losses, so the warmup rate is quite linear:
+
+\[WARMUP\:RATE = 0.5\frac{^{\circ}C}{hr}\]
+
+Bedtime's around 10PM and reveille around 7AM, so let's use a NSB
+schedule of 8PM-4AM. We can tolerate things cooling off a bit just
+before bedtime, and the 4AM start guarantees that we'll have hit our
+"occupied" RTSP by 7AM on all but very cold nights.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{} RTSP = 22 Occupied, 18 Night}
+         \PY{c+c1}{\PYZsh{}df = pd.DataFrame(bau[\PYZsq{}20170901\PYZsq{}:\PYZsq{}20180301\PYZsq{}][\PYZsq{}OAT\PYZsq{}].dropna())}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{hour}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{hour}\PY{o}{\PYZlt{}}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nrtsp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{22}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{hour}\PY{o}{\PYZlt{}}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{|}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{hour}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nrtsp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{18}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{WARMRATE}\PY{o}{=}\PY{l+m+mf}{0.5}
+         \PY{c+c1}{\PYZsh{} First we\PYZsq{}ll calculate the hourly RT for NSB: nrt}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mf}{0.0}
+         \PY{n}{rt}\PY{o}{=}\PY{l+m+mi}{22}
+         \PY{n}{newtonK}\PY{o}{=}\PY{l+m+mf}{0.036}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{row} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rtsp} \PY{o}{=} \PY{n}{row}\PY{o}{.}\PY{n}{nrtsp}
+             \PY{n}{delta} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{rtsp}\PY{o}{\PYZhy{}}\PY{n}{rt}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}D: \PYZpc{}f\PYZdq{}\PYZpc{}delta)}
+             \PY{k}{if} \PY{n}{delta} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} increase temperature by delta to a max of 1}
+                 \PY{k}{if} \PY{n}{delta} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:} \PY{n}{delta} \PY{o}{=} \PY{n}{WARMRATE}
+             \PY{k}{elif} \PY{n}{delta} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} newton\PYZsq{}s law of cooling for T=+1}
+                 \PY{n}{rt1} \PY{o}{=} \PY{n}{row}\PY{o}{.}\PY{n}{OAT} \PY{o}{+} \PY{p}{(}\PY{n}{rt}\PY{o}{\PYZhy{}}\PY{n}{row}\PY{o}{.}\PY{n}{OAT}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{newtonK}\PY{p}{)}
+                 \PY{n}{CDRATE} \PY{o}{=} \PY{n}{rt1}\PY{o}{\PYZhy{}}\PY{n}{rt}
+                 \PY{c+c1}{\PYZsh{}print(\PYZdq{}CD: \PYZpc{}f\PYZdq{}\PYZpc{}CDRATE)}
+                 \PY{k}{if} \PY{n}{delta} \PY{o}{\PYZlt{}} \PY{n}{CDRATE}\PY{p}{:} \PY{n}{delta} \PY{o}{=} \PY{n}{CDRATE}
+             \PY{n}{rt} \PY{o}{=} \PY{n}{rt} \PY{o}{+} \PY{n}{delta}
+             \PY{n}{df}\PY{o}{.}\PY{n}{nrt}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=} \PY{n}{rt}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}\PYZpc{}d rtsp=\PYZpc{}f rt=\PYZpc{}f delta=\PYZpc{}f oat=\PYZpc{}f\PYZdq{} \PYZpc{} (i.hour,rtsp,rt,delta,row.OAT))}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{} Now calculate the sum of delta\PYZhy{}T for BAU vs NSB (heating only)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bauhd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{rt}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{o}{.}\PY{n}{OAT}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bauhd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bauhd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nsbhd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{nrt}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{o}{.}\PY{n}{OAT}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nsbhd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nsbhd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{c+c1}{\PYZsh{}project savings}
+         \PY{n}{heatDTsaved} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{bauhd}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{df}\PY{o}{.}\PY{n}{nsbhd}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)} 
+         \PY{n}{heatfracsaved} \PY{o}{=} \PY{n}{heatDTsaved}\PY{o}{/}\PY{n}{df}\PY{o}{.}\PY{n}{bauhd}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Heating savings: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{heatfracsaved}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}df.nsbhd.describe()}
+         \PY{c+c1}{\PYZsh{}df.bauhd.describe()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Heating savings: 7.61\%
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{df}\PY{o}{.}\PY{n}{nsbhd}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{bauhd}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{nsbhd}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n}{df}\PY{o}{.}\PY{n}{bauhd}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:} count    8760.000000
+         mean       10.333060
+         std         4.850989
+         min         0.000000
+         25\%         6.171439
+         50\%        10.998450
+         75\%        14.100000
+         max        23.900000
+         Name: nsbhd, dtype: float64
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:} count    8760.000000
+         mean       11.183767
+         std         5.257502
+         min         0.000000
+         25\%         6.500000
+         50\%        12.000000
+         75\%        15.500000
+         max        25.000000
+         Name: bauhd, dtype: float64
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:} 0.9239337241165206
+\end{Verbatim}
+            
+    The following chart illustrates how much more quickly things cool down
+when it's cold out. The green squiggle shows the sum of reduced
+\(\Delta T\) values (RT vs OAT) over two periods of three days, as
+compared to a constant RT of 22C.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}\PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Typical NSB HDH Savings}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{dd}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013\PYZhy{}05\PYZhy{}10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013\PYZhy{}05\PYZhy{}13}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{dd}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SavHDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{dd}\PY{o}{.}\PY{n}{rt}\PY{o}{\PYZhy{}}\PY{n}{dd}\PY{o}{.}\PY{n}{nrt}\PY{p}{)}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{0}
+         
+         \PY{n}{tit}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Warm OAT \PYZti{} }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{°C}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{dd}.OAT.mean()
+         \PY{n}{ax}\PY{o}{=}\PY{n}{dd}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SavHDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{n}{a}\PY{p}{]}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{n}{tit}\PY{p}{,}\PY{n}{secondary\PYZus{}y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SavHDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{dd}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nrtsp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{n}{a}\PY{p}{]}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{drawstyle}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{steps\PYZhy{}post}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{lines} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}lines}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{ax}\PY{o}{.}\PY{n}{right\PYZus{}ax}\PY{o}{.}\PY{n}{get\PYZus{}lines}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Need to add \PYZdq{}lines\PYZdq{} from right ax to label it.}
+         \PY{c+c1}{\PYZsh{}ax.legend(lines,[\PYZsq{}RT\PYZsq{},\PYZsq{}OAT\PYZsq{},\PYZsq{}SavHDH\PYZsq{},\PYZsq{}RTSP\PYZsq{}])}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Degrees C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{dd}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013\PYZhy{}12\PYZhy{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2013\PYZhy{}12\PYZhy{}9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{dd}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SavHDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{dd}\PY{o}{.}\PY{n}{rt}\PY{o}{\PYZhy{}}\PY{n}{dd}\PY{o}{.}\PY{n}{nrt}\PY{p}{)}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{tit}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cold OAT \PYZti{} }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{°C}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{dd}.OAT.mean()
+         \PY{n}{ax}\PY{o}{=}\PY{n}{dd}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SavHDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{n}{a}\PY{p}{]}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{n}{tit}\PY{p}{,}\PY{n}{secondary\PYZus{}y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SavHDH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{dd}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nrtsp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{n}{a}\PY{p}{]}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{drawstyle}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{steps\PYZhy{}post}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{lines} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}lines}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{ax}\PY{o}{.}\PY{n}{right\PYZus{}ax}\PY{o}{.}\PY{n}{get\PYZus{}lines}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Need to add \PYZdq{}lines\PYZdq{} from right ax to label it.}
+         \PY{c+c1}{\PYZsh{}ax.legend(lines,[\PYZsq{}RT\PYZsq{},\PYZsq{}OAT\PYZsq{},\PYZsq{}SavHDH\PYZsq{},\PYZsq{}RTSP\PYZsq{}])}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{right\PYZus{}ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sum of saved degree\PYZhy{}hours}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{NSB Hourly Consumption}\label{nsb-hourly-consumption}
+
+The average annual savings number is nice to know, but what we
+\emph{really} want to know is the new hourly consumption -\/- otherwise
+we have no way of knowing how the NSB will interact with other measures.
+
+We can get fairly close with the assumptions we've already made:
+
+\begin{itemize}
+\tightlist
+\item
+  Cooldown: hourly heating load is 0
+\item
+  Steady state: same as BAU, but with savings proportional to the
+  reduction in \(\Delta T\) vs OAT.
+\item
+  Total heating savings \(BAU \rightarrow NSB\) are known from the
+  approximation above
+\item
+  We can now solve for the sum of heating loads during warmup periods
+
+  \begin{itemize}
+  \tightlist
+  \item
+    distribute this sum between all warmup periods
+  \item
+    pro rate such that hours with a fractional warmup get a fractional
+    share.
+  \end{itemize}
+\end{itemize}
+
+\begin{align}
+\sum H_{NSB}    =\sum H_{BAU}\times(1-Savings\sim6.5\%)\\
+H_{NSB} =H_{cooldown}+H_{SS}+H_{warmup}\\
+\begin{aligned}H_{cool} &=0\\
+H_{SS} & =H_{BAU}\times\left(1-\frac{\Delta T_{NSB}}{\Delta T_{BAU}}\right)\\
+\end{aligned}\\
+\sum H_{warmup} =\sum H_{BAU}(0.935)-\sum H_{SS}
+\end{align}
+
+Distribute as follows:
+
+\begin{align}
+\sum Hours_{warm}=\sum f(t) \begin{cases}
+1 & \Delta T(t)\ge1C\\
+\Delta T(t) & \Delta T(t)<1C
+\end{cases}\\
+H(t)=\frac{\sum H}{\sum Hours} \times f(t)\\
+\end{align}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{k}{def} \PY{n+nf}{saveDT}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+             \PY{n}{RTN}\PY{o}{=}\PY{n}{row}\PY{o}{.}\PY{n}{nrt}
+             \PY{n}{RTB}\PY{o}{=}\PY{n}{row}\PY{o}{.}\PY{n}{rt}
+             \PY{n}{OAT}\PY{o}{=}\PY{n}{row}\PY{o}{.}\PY{n}{OAT}
+             \PY{c+c1}{\PYZsh{} Computes the fractional reduction in delta T for NSB as compared to BAU}
+             \PY{n}{DTN}\PY{o}{=}\PY{n}{RTN}\PY{o}{\PYZhy{}}\PY{n}{OAT}
+             \PY{n}{DTB}\PY{o}{=}\PY{n}{RTB}\PY{o}{\PYZhy{}}\PY{n}{OAT}
+             \PY{k}{if}\PY{p}{(}\PY{n}{DTB}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:} \PY{k}{return} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} There are no savings possible if the BAU DT indicates no heating.}
+             \PY{k}{if}\PY{p}{(}\PY{n}{DTN}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:} \PY{n}{DTN}\PY{o}{=}\PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} Best we can do is turn off the heat and save 100\PYZpc{}}
+             \PY{k}{return} \PY{p}{(}\PY{n}{DTB}\PY{o}{\PYZhy{}}\PY{n}{DTN}\PY{p}{)}\PY{o}{/}\PY{n}{DTB}
+         
+         \PY{c+c1}{\PYZsh{} Categorize periods and calculate new heating load for each period}
+         \PY{n}{h} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{hload}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Set default values for cooling}
+         \PY{n}{h}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cooldown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{h}\PY{o}{.}\PY{n}{nrt} \PY{o}{\PYZgt{}} \PY{n}{h}\PY{o}{.}\PY{n}{nrtsp}
+         \PY{n}{h}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{h}\PY{o}{.}\PY{n}{cooldown}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savefrac}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{h}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{h}\PY{o}{.}\PY{n}{cooldown}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nhload}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} 
+         
+         \PY{c+c1}{\PYZsh{}compute savings fraction and hload for the Steady State periods}
+         \PY{c+c1}{\PYZsh{} I think there\PYZsq{}s an error here.}
+         \PY{n}{h}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{h}\PY{o}{.}\PY{n}{nrt} \PY{o}{==} \PY{n}{h}\PY{o}{.}\PY{n}{nrtsp}
+         \PY{c+c1}{\PYZsh{}h[\PYZsq{}savefrac\PYZsq{}] = }
+         \PY{n}{h}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{h}\PY{o}{.}\PY{n}{ss}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savefrac}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{h}\PY{p}{[}\PY{n}{h}\PY{o}{.}\PY{n}{ss}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{saveDT}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{h}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{h}\PY{o}{.}\PY{n}{ss}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nhload}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{h}\PY{p}{[}\PY{n}{h}\PY{o}{.}\PY{n}{ss}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hload}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{h}\PY{p}{[}\PY{n}{h}\PY{o}{.}\PY{n}{ss}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savefrac}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}now get ready for the warmup rows}
+         \PY{n}{h}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{warmup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{h}\PY{o}{.}\PY{n}{nrt} \PY{o}{\PYZlt{}} \PY{n}{h}\PY{o}{.}\PY{n}{nrtsp}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{} calculate the expected total NSB heating load, and the number of hours over which it should be distributed}
+         \PY{n}{hw} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{h}\PY{p}{[}\PY{n}{h}\PY{o}{.}\PY{n}{warmup}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Count the whole and fractional hours where warmup occurs}
+         \PY{n}{hw}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whrs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{hw}\PY{o}{.}\PY{n}{nrtsp} \PY{o}{\PYZhy{}} \PY{n}{hw}\PY{o}{.}\PY{n}{nrt} \PY{c+c1}{\PYZsh{} This is correct where DT\PYZlt{}=1}
+         \PY{n}{hw}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{hw}\PY{o}{.}\PY{n}{whrs}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whrs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} Because whrs is 1 where DT\PYZgt{}1}
+         \PY{n}{whrs} \PY{o}{=} \PY{n}{hw}\PY{o}{.}\PY{n}{whrs}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Total Warmup heating is expected NSB total, less expected NSB at SS.}
+         \PY{n}{expectedHnsb} \PY{o}{=} \PY{n}{h}\PY{o}{.}\PY{n}{hload}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{heatfracsaved}\PY{p}{)} 
+         \PY{n}{expectedHss} \PY{o}{=} \PY{n}{h}\PY{p}{[}\PY{n}{h}\PY{o}{.}\PY{n}{ss}\PY{p}{]}\PY{o}{.}\PY{n}{hload}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{expectHwarmup} \PY{o}{=} \PY{n}{expectedHnsb} \PY{o}{\PYZhy{}} \PY{n}{expectedHss}
+         
+         \PY{c+c1}{\PYZsh{} Now distribute the warmup load}
+         \PY{n}{HwarmPerWhr} \PY{o}{=} \PY{n}{expectHwarmup} \PY{o}{/} \PY{n}{whrs} 
+         \PY{n}{h}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{hw}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nhload}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{hw}\PY{o}{.}\PY{n}{whrs} \PY{o}{*} \PY{n}{HwarmPerWhr}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} There is an error here:}
+         \PY{n}{h}\PY{o}{.}\PY{n}{nhload}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n}{h}\PY{o}{.}\PY{n}{hload}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} 0.9188191831627831
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{c+c1}{\PYZsh{} These should match}
+         \PY{c+c1}{\PYZsh{}expectedHss }
+         \PY{c+c1}{\PYZsh{}h.nhload[h.ss].sum()}
+         
+         \PY{c+c1}{\PYZsh{} So should these}
+         \PY{c+c1}{\PYZsh{}expectHwarmup}
+         \PY{c+c1}{\PYZsh{}h.nhload[h.warmup].sum()}
+         
+         \PY{n}{h}\PY{o}{.}\PY{n}{nhload}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} 6369.993951481103
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{h}\PY{o}{.}\PY{n}{hload}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} 6932.8047
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
